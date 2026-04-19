@@ -10,6 +10,7 @@ function App() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [continent, setContinent] = useState("All");
+  const [sort, setSort] = useState("name-asc");
 
   const fetchCountries = async () => {
     try {
@@ -35,16 +36,32 @@ function App() {
     fetchCountries();
   }, []);
 
-  const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  const filteredCountries = countries
+    .filter((country) => {
+      const matchesSearch = country.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    const matchesContinent =
-      continent === "All" || country.continent === continent;
+      const matchesContinent =
+        continent === "All" || country.continent === continent;
 
-    return matchesSearch && matchesContinent;
-  });
+      return matchesSearch && matchesContinent;
+    })
+    .sort((a, b) => {
+      if (sort === "name-asc") {
+        return a.name.localeCompare(b.name);
+      }
+      if (sort === "name-desc") {
+        return b.name.localeCompare(a.name);
+      }
+      if (sort === "pop-asc") {
+        return a.population - b.population;
+      }
+      if (sort === "pop-desc") {
+        return b.population - a.population;
+      }
+      return 0;
+    });
 
   return (
     <main className="app">
@@ -57,6 +74,8 @@ function App() {
         setSearch={setSearch}
         continent={continent}
         setContinent={setContinent}
+        sort={sort}
+        setSort={setSort}
       />
 
       {!loading && filteredCountries.length === 0 && (

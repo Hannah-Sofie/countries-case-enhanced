@@ -50,6 +50,8 @@ function App() {
     <main className="app">
       <Header onFetch={fetchCountries} loading={loading} error={error} />
 
+      {loading && <p className="status">Loading countries...</p>}
+
       <Controls
         search={search}
         setSearch={setSearch}
@@ -57,7 +59,13 @@ function App() {
         setContinent={setContinent}
       />
 
-      <CountriesGrid countries={filteredCountries} />
+      {!loading && filteredCountries.length === 0 && (
+        <p className="status">No countries found.</p>
+      )}
+
+      {filteredCountries.length > 0 && (
+        <CountriesGrid countries={filteredCountries} />
+      )}
     </main>
   );
 }

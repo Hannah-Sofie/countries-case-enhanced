@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import CountriesGrid from "./components/CountriesGrid";
+import Controls from "./components/Controls";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [continent, setContinent] = useState("All");
 
   const fetchCountries = async () => {
     try {
@@ -32,10 +35,29 @@ function App() {
     fetchCountries();
   }, []);
 
+  const filteredCountries = countries.filter((country) => {
+    const matchesSearch = country.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchesContinent =
+      continent === "All" || country.continent === continent;
+
+    return matchesSearch && matchesContinent;
+  });
+
   return (
     <main className="app">
       <Header onFetch={fetchCountries} loading={loading} error={error} />
-      <CountriesGrid countries={countries} />
+
+      <Controls
+        search={search}
+        setSearch={setSearch}
+        continent={continent}
+        setContinent={setContinent}
+      />
+
+      <CountriesGrid countries={filteredCountries} />
     </main>
   );
 }

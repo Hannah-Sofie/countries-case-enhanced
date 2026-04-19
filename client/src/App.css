@@ -103,3 +103,18 @@ button:disabled {
 .country-info strong {
   color: #111827;
 }
+
+.controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.controls input,
+.controls select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}

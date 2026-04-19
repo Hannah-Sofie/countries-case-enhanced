@@ -1,4 +1,11 @@
-function Controls({ search, setSearch, continent, setContinent }) {
+function Controls({
+  search,
+  setSearch,
+  continent,
+  setContinent,
+  sort,
+  setSort,
+}) {
   return (
     <div className="controls">
       <input
@@ -16,6 +23,13 @@ function Controls({ search, setSearch, continent, setContinent }) {
         <option value="North America">North America</option>
         <option value="South America">South America</option>
         <option value="Oceania">Oceania</option>
+      </select>
+
+      <select value={sort} onChange={(e) => setSort(e.target.value)}>
+        <option value="name-asc">Name (A–Z)</option>
+        <option value="name-desc">Name (Z–A)</option>
+        <option value="pop-asc">Population (low to high)</option>
+        <option value="pop-desc">Population (high to low)</option>
       </select>
     </div>
   );

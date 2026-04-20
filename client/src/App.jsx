@@ -23,13 +23,30 @@ function App() {
       const response = await fetch(`${backendUrl}/api/countries`);
 
       if (!response.ok) {
-        throw new Error("Could not fetch countries");
+        const body = await response.json().catch(() => ({}));
+        const details = body.details || body.error || response.statusText;
+
+        if (response.status >= 500) {
+          throw new Error(
+            `Server error (${response.status}): ${details}. Please try again in a moment.`
+          );
+        }
+
+        throw new Error(
+          `Request failed (${response.status}): ${details}.`
+        );
       }
 
       const data = await response.json();
       setCountries(data.countries);
     } catch (error) {
-      setError("Something went wrong while fetching countries.");
+      if (error instanceof TypeError) {
+        setError(
+          "Could not reach the server. Check your internet connection and try again."
+        );
+      } else {
+        setError(error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -68,7 +85,12 @@ function App() {
 
   return (
     <main className="app">
-      <Header onFetch={fetchCountries} loading={loading} error={error} />
+      <Header
+        onFetch={fetchCountries}
+        loading={loading}
+        error={error}
+        onDismissError={() => setError("")}
+      />
 
       {loading && <p className="status">Loading countries...</p>}
 

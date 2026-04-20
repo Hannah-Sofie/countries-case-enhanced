@@ -2,6 +2,11 @@
 
 An enhanced version of a countries API case built with React and Node.js/Express.
 
+## Live demo
+
+- Frontend: https://countries-case-enhanced.vercel.app/
+- Backend: https://countries-case-enhanced-production.up.railway.app/api/countries
+
 ## Features
 
 - Fetch 10 random countries from an external API
@@ -28,8 +33,10 @@ server/ → backend (Node.js / Express)
 
 ### 1. Clone the repository
 
-git clone https://github.com/<your-username>/countries-case-enhanced.git  
+```bash
+git clone https://github.com/Hannah-Sofie/countries-case-enhanced.git
 cd countries-case-enhanced
+```
 
 ---
 
@@ -81,7 +88,11 @@ npm run dev
 - The API key is stored in a `.env` file and is not exposed in the frontend
 - The app supports combined search, filtering, and sorting
 
+## Deployment
+
+- Frontend is deployed on Vercel
+- Backend is deployed on Railway
+
 ## Future Improvements
 
 - Improve UI design and visual polish
-- Deploy the application (frontend + backend)

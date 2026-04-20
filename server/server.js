@@ -11,6 +11,8 @@ app.use(cors());
 
 app.get("/api/countries", async (req, res) => {
   try {
+    console.log("API key exists:", !!process.env.COUNTRIES_API_KEY);
+
     const response = await fetch(
       "https://case.bitforbit.dev/api/v1/countries",
       {
@@ -20,15 +22,28 @@ app.get("/api/countries", async (req, res) => {
       }
     );
 
+    console.log("External API status:", response.status);
+
     if (!response.ok) {
-      throw new Error("Failed to fetch countries");
+      const text = await response.text();
+      console.log("External API error body:", text);
+
+      return res.status(response.status).json({
+        error: "External API failed",
+        status: response.status,
+        details: text,
+      });
     }
 
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch countries" });
+    console.error("SERVER ERROR:", error);
+
+    res.status(500).json({
+      error: "Server failed",
+      details: error.message,
+    });
   }
 });
 

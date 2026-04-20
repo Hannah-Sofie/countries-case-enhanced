@@ -17,7 +17,9 @@ function App() {
       setLoading(true);
       setError("");
 
-      const response = await fetch("http://localhost:3001/api/countries");
+      const response = await fetch(
+        "https://countries-case-enhanced-production.up.railway.app/api/countries"
+      );
 
       if (!response.ok) {
         throw new Error("Could not fetch countries");

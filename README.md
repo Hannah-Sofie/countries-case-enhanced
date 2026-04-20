@@ -92,7 +92,3 @@ npm run dev
 
 - Frontend is deployed on Vercel
 - Backend is deployed on Railway
-
-## Future Improvements
-
-- Improve UI design and visual polish

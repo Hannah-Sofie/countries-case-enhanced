@@ -6,13 +6,12 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const isDev = process.env.NODE_ENV !== "production";
 
 app.use(cors());
 
 app.get("/api/countries", async (req, res) => {
   try {
-    console.log("API key exists:", !!process.env.COUNTRIES_API_KEY);
-
     const response = await fetch(
       "https://case.bitforbit.dev/api/v1/countries",
       {
@@ -22,11 +21,12 @@ app.get("/api/countries", async (req, res) => {
       }
     );
 
-    console.log("External API status:", response.status);
-
     if (!response.ok) {
       const text = await response.text();
-      console.log("External API error body:", text);
+
+      if (isDev) {
+        console.log("External API error:", response.status, text);
+      }
 
       return res.status(response.status).json({
         error: "External API failed",
@@ -38,7 +38,9 @@ app.get("/api/countries", async (req, res) => {
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error("SERVER ERROR:", error);
+    if (isDev) {
+      console.error("Server error:", error);
+    }
 
     res.status(500).json({
       error: "Server failed",

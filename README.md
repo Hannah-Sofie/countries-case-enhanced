@@ -36,14 +36,14 @@ cd countries-case-enhanced
 ### 2. Setup backend
 
 ```bash
-git clone ...
-cd ...
+cd server
+npm install
 ```
 
-Create a `.env` file in the server folder:
+Copy `.env.example` to `.env` and add your API key:
 
 ```bash
-COUNTRIES_API_KEY=your_api_key_here
+cp .env.example .env
 ```
 
 Start backend:

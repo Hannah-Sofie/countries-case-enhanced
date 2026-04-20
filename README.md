@@ -56,9 +56,22 @@ npm start
 
 ### 3. Setup frontend
 
-cd client  
-npm install  
+```bash
+cd client
+npm install
+```
+
+Copy `.env.example` to `.env` and adjust if needed:
+
+```bash
+cp .env.example .env
+```
+
+Start frontend:
+
+```bash
 npm run dev
+```
 
 ---
 

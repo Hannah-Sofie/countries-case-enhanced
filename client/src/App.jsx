@@ -17,9 +17,10 @@ function App() {
       setLoading(true);
       setError("");
 
-      const response = await fetch(
-        "https://countries-case-enhanced-production.up.railway.app/api/countries"
-      );
+      const backendUrl =
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+
+      const response = await fetch(`${backendUrl}/api/countries`);
 
       if (!response.ok) {
         throw new Error("Could not fetch countries");

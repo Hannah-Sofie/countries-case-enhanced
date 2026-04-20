@@ -101,6 +101,7 @@ function App() {
         setContinent={setContinent}
         sort={sort}
         setSort={setSort}
+        loading={loading}
       />
 
       {!loading && filteredCountries.length === 0 && (

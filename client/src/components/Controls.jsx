@@ -5,6 +5,7 @@ function Controls({
   setContinent,
   sort,
   setSort,
+  loading,
 }) {
   return (
     <div className="controls">
@@ -17,6 +18,7 @@ function Controls({
         placeholder="Search countries..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        disabled={loading}
       />
 
       <label htmlFor="continent" className="visually-hidden">
@@ -26,6 +28,7 @@ function Controls({
         id="continent"
         value={continent}
         onChange={(e) => setContinent(e.target.value)}
+        disabled={loading}
       >
         <option value="All">All continents</option>
         <option value="Europe">Europe</option>
@@ -43,6 +46,7 @@ function Controls({
         id="sort"
         value={sort}
         onChange={(e) => setSort(e.target.value)}
+        disabled={loading}
       >
         <option value="name-asc">Name (A–Z)</option>
         <option value="name-desc">Name (Z–A)</option>

@@ -1,4 +1,4 @@
-function Header({ onFetch, loading, error }) {
+function Header({ onFetch, loading, error, onDismissError }) {
   return (
     <header className="app-header">
       <h1>Countries of the world</h1>
@@ -10,7 +10,19 @@ function Header({ onFetch, loading, error }) {
         </button>
       </div>
 
-      {error && <p className="error">{error}</p>}
+      {error && (
+        <div className="error" role="alert">
+          <span>{error}</span>
+          <button
+            type="button"
+            className="error-dismiss"
+            onClick={onDismissError}
+            aria-label="Dismiss error"
+          >
+            ×
+          </button>
+        </div>
+      )}
     </header>
   );
 }
